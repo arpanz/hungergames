@@ -14,18 +14,11 @@ class FoodGrid extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.inbox_outlined,
-              size: 64,
-              color: Colors.grey[600],
-            ),
+            Icon(Icons.inbox_outlined, size: 64, color: Colors.grey[600]),
             const SizedBox(height: 16),
             Text(
               'No items found',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.grey[400],
-              ),
+              style: TextStyle(fontSize: 18, color: Colors.grey[400]),
             ),
           ],
         ),
@@ -36,10 +29,11 @@ class FoodGrid extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: _getCrossAxisCount(context),
-        childAspectRatio: 0.75,
+        childAspectRatio: 0.65,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
       ),
+
       itemCount: foodItems.length,
       itemBuilder: (context, index) {
         return FoodCard(foodItem: foodItems[index]);
@@ -49,7 +43,7 @@ class FoodGrid extends StatelessWidget {
 
   int _getCrossAxisCount(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    if (width < 600) return 1; // Mobile
+    if (width < 600) return 2; // Mobile
     if (width < 900) return 2; // Tablet
     if (width < 1200) return 3; // Small Desktop
     return 4; // Large Desktop

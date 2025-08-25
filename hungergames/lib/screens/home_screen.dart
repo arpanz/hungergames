@@ -25,12 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadData() async {
     setState(() => _isLoading = true);
-    
+
     final categories = await SupabaseService.getCategories();
     final foodItems = await SupabaseService.getFoodItems(
       category: _selectedCategory == 'All' ? null : _selectedCategory,
     );
-    
+
     setState(() {
       _categories = categories;
       _foodItems = foodItems;
@@ -43,11 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
       _selectedCategory = category;
       _isLoading = true;
     });
-    
+
     final foodItems = await SupabaseService.getFoodItems(
       category: category == 'All' ? null : category,
     );
-    
+
     setState(() {
       _foodItems = foodItems;
       _isLoading = false;
@@ -78,11 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.restaurant,
-                        color: Colors.orange,
-                        size: 32,
-                      ),
+                      Icon(Icons.restaurant, color: Colors.orange, size: 32),
                       const SizedBox(width: 12),
                       Text(
                         'HungerSpace',
@@ -96,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Late Night Cravings Delivered',
+                    'Night Cravings Done @4E-129/132',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey[400],
@@ -107,21 +103,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          
+
           // Category Tabs
           CategoryTabs(
             categories: _categories,
             selectedCategory: _selectedCategory,
             onCategoryChanged: _onCategoryChanged,
           ),
-          
+
           // Food Grid
           Expanded(
             child: _isLoading
                 ? const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.orange,
-                    ),
+                    child: CircularProgressIndicator(color: Colors.orange),
                   )
                 : FoodGrid(foodItems: _foodItems),
           ),
