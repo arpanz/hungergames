@@ -31,7 +31,7 @@ class FoodItem {
 
   bool get isOnSale => originalPrice > price;
   bool get isInStock => quantityAvailable > 0;
-  
+
   String get whatsappMessage {
     return "Hi HungerSpace! I want to order *$name* - ₹$price. Is it available?";
   }

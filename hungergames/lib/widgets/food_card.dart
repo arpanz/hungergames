@@ -33,7 +33,9 @@ class FoodCard extends StatelessWidget {
                 borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
               ),
               child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
                 child: Image.asset(
                   foodItem.imagePath,
                   fit: BoxFit.cover,
@@ -51,7 +53,7 @@ class FoodCard extends StatelessWidget {
               ),
             ),
           ),
-          
+
           // Content
           Expanded(
             flex: 2,
@@ -71,9 +73,9 @@ class FoodCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  
+
                   const Spacer(),
-                  
+
                   // Price Row
                   Row(
                     children: [
@@ -98,9 +100,9 @@ class FoodCard extends StatelessWidget {
                       ],
                     ],
                   ),
-                  
+
                   const SizedBox(height: 8),
-                  
+
                   // Quantity and Order Button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,23 +111,23 @@ class FoodCard extends StatelessWidget {
                         'Qty: ${foodItem.quantityAvailable}',
                         style: TextStyle(
                           fontSize: 12,
-                          color: foodItem.isInStock 
-                              ? Colors.green 
-                              : Colors.red,
+                          color: foodItem.isInStock ? Colors.green : Colors.red,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      
+
                       GestureDetector(
-                        onTap: foodItem.isInStock ? () => _orderItem(foodItem) : null,
+                        onTap: foodItem.isInStock
+                            ? () => _orderItem(foodItem)
+                            : null,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 12,
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color: foodItem.isInStock 
-                                ? Colors.orange 
+                            color: foodItem.isInStock
+                                ? Colors.orange
                                 : Colors.grey[700],
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -134,8 +136,8 @@ class FoodCard extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: foodItem.isInStock 
-                                  ? Colors.black 
+                              color: foodItem.isInStock
+                                  ? Colors.black
                                   : Colors.grey[400],
                             ),
                           ),
@@ -153,8 +155,9 @@ class FoodCard extends StatelessWidget {
   }
 
   void _orderItem(FoodItem item) async {
-    final whatsappUrl = 'https://wa.me/919876543210?text=${Uri.encodeComponent(item.whatsappMessage)}';
-    
+    final whatsappUrl =
+        'https://wa.me/8418800118?text=${Uri.encodeComponent(item.whatsappMessage)}';
+
     if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
       await launchUrl(Uri.parse(whatsappUrl));
     } else {
