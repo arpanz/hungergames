@@ -1,11 +1,11 @@
 {
-    "name": "hungergames",
-    "short_name": "hungergames",
+    "name": "hungerspace",
+    "short_name": "hungerspace",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Night Cravings Done the Right Way.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

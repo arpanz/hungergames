@@ -1,4 +1,4 @@
-// lib/models/food_item.dart - UPDATE THIS
+// lib/models/food_item.dart - UPDATED
 class FoodItem {
   final int id;
   final String name;
@@ -7,6 +7,7 @@ class FoodItem {
   final int? price; // Now nullable
   final int originalPrice;
   final int quantityAvailable;
+  final int ranking; // New field for sorting
 
   FoodItem({
     required this.id,
@@ -16,6 +17,7 @@ class FoodItem {
     this.price, // Now nullable
     required this.originalPrice,
     required this.quantityAvailable,
+    required this.ranking, // Add to constructor
   });
 
   factory FoodItem.fromJson(Map<String, dynamic> json) {
@@ -27,13 +29,14 @@ class FoodItem {
       price: json['price'] as int?, // Handle nullable price
       originalPrice: json['original_price'] as int,
       quantityAvailable: json['quantity_available'] as int,
+      ranking: json['ranking'] as int, // Parse from JSON
     );
   }
 
   // Updated getters to handle nullable price
   bool get isOnSale => price != null && price! < originalPrice;
   bool get isInStock => quantityAvailable > 0;
-  
+
   // Get the actual selling price (price if available, otherwise original_price)
   int get sellingPrice => price ?? originalPrice;
 }

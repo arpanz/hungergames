@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/food_item.dart';
+import '../models/operational_hours.dart';
 
 class SupabaseService {
   static const String supabaseUrl = 'https://eoagacckvnaxuplabcjl.supabase.co';
@@ -25,7 +26,10 @@ class SupabaseService {
         query = query.eq('category', category.toLowerCase());
       }
 
-      final response = await query.order('id');
+      // Sort by ranking ascending (starting from 1), then by name
+      final response = await query
+          .order('ranking', ascending: true)
+          .order('name', ascending: true);
 
       return (response as List).map((item) => FoodItem.fromJson(item)).toList();
     } catch (e) {
@@ -50,6 +54,16 @@ class SupabaseService {
     } catch (e) {
       print('Error fetching categories: $e');
       return ['All', 'Noodles', 'Snacks', 'Beverages'];
+    }
+  }
+
+  static Future<OperationalHours?> getOperationalHours() async {
+    try {
+      final response = await client.from('operational_hours').select().single();
+      return OperationalHours.fromJson(response);
+    } catch (e) {
+      print('Error fetching operational hours: $e');
+      return null;
     }
   }
 

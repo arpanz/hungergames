@@ -1,8 +1,11 @@
+// lib/screens/home_screen.dart - UPDATED
 import 'package:flutter/material.dart';
 import '../models/food_item.dart';
+import '../models/operational_hours.dart'; // Import new model
 import '../services/supabase_service.dart';
 import '../widgets/category_tabs.dart';
 import '../widgets/food_grid.dart';
+import '../widgets/operational_hours_bar.dart'; // Import new widget
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> _categories = [];
   String _selectedCategory = 'All';
   bool _isLoading = true;
+  OperationalHours? _operationalHours; // Add this
 
   @override
   void initState() {
@@ -24,21 +28,27 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadData() async {
+    if (!mounted) return;
     setState(() => _isLoading = true);
 
     final categories = await SupabaseService.getCategories();
     final foodItems = await SupabaseService.getFoodItems(
       category: _selectedCategory == 'All' ? null : _selectedCategory,
     );
+    final operationalHours =
+        await SupabaseService.getOperationalHours(); // Fetch hours
 
+    if (!mounted) return;
     setState(() {
       _categories = categories;
       _foodItems = foodItems;
+      _operationalHours = operationalHours; // Set hours
       _isLoading = false;
     });
   }
 
   Future<void> _onCategoryChanged(String category) async {
+    if (!mounted) return;
     setState(() {
       _selectedCategory = category;
       _isLoading = true;
@@ -48,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
       category: category == 'All' ? null : category,
     );
 
+    if (!mounted) return;
     setState(() {
       _foodItems = foodItems;
       _isLoading = false;
@@ -104,6 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
+          // Operational Hours Bar
+          OperationalHoursBar(operationalHours: _operationalHours),
+
           // Category Tabs
           CategoryTabs(
             categories: _categories,
@@ -111,13 +125,18 @@ class _HomeScreenState extends State<HomeScreen> {
             onCategoryChanged: _onCategoryChanged,
           ),
 
-          // Food Grid
+          // Food Grid with Pull-to-Refresh
           Expanded(
             child: _isLoading
                 ? const Center(
                     child: CircularProgressIndicator(color: Colors.orange),
                   )
-                : FoodGrid(foodItems: _foodItems),
+                : RefreshIndicator(
+                    onRefresh: _loadData,
+                    color: Colors.orange,
+                    backgroundColor: Colors.grey[900],
+                    child: FoodGrid(foodItems: _foodItems),
+                  ),
           ),
         ],
       ),
