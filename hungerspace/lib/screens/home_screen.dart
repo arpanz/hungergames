@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icon(Icons.restaurant, color: Colors.orange, size: 32),
                       const SizedBox(width: 12),
                       Text(
-                        'HungerSpace',
+                        'HungerSpaces',
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
