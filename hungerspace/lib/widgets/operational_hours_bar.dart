@@ -37,68 +37,18 @@ class OperationalHoursBar extends StatelessWidget {
   Widget _buildMobileLayout() {
     return Column(
       children: [
-        // Header with Room Number
+        // Centered icon and status
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.access_time, color: Colors.orange, size: 18),
-                const SizedBox(width: 8),
-                Text(
-                  'Operational Hours',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-            _buildStatusBadge(),
-          ],
-        ),
-
-        const SizedBox(height: 12),
-
-        // Room Number - Prominently Highlighted
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-            color: Colors.orange.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.orange.withOpacity(0.3)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.location_on, color: Colors.orange, size: 16),
-              const SizedBox(width: 6),
-              Text(
-                'Room: 4E-129/132',
-                style: TextStyle(
-                  color: Colors.orange,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 12),
-
-        // Time Slots - Enhanced
-        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildHighlightedTimeSlot(
               'Till 12pm',
               operationalHours!.till12pm,
               Colors.blue,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(width: 12),
             _buildHighlightedTimeSlot(
-              '12pm - 2am',
+              'After 12pm',
               operationalHours!.from12pmTo2am,
               Colors.purple,
             ),
@@ -128,8 +78,6 @@ class OperationalHoursBar extends StatelessWidget {
           operationalHours!.from12pmTo2am,
           Colors.purple,
         ),
-        const SizedBox(width: 16),
-        _buildStatusBadge(),
       ],
     );
   }

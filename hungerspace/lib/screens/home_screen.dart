@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 6),
                   Text(
                     'Night Cravings Done @4E-129/132',
                     style: TextStyle(
@@ -115,8 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          // Operational Hours Bar
-          OperationalHoursBar(operationalHours: _operationalHours),
+          // // Operational Hours Bar
+          // OperationalHoursBar(operationalHours: _operationalHours),
 
           // Category Tabs
           CategoryTabs(

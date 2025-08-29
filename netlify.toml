@@ -1,0 +1,9 @@
+[build]
+  command = "flutter build web --release"
+  publish = "build/web"
+
+[build.environment]
+  FLUTTER_VERSION = "3.32.7" # change to your flutter version
+
+[[plugins]]
+  package = "netlify-plugin-flutter"
